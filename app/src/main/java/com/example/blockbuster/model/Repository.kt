@@ -1,5 +1,7 @@
-package com.example.blockbuster
+package com.example.blockbuster.model
 
+import com.example.blockbuster.GenreList
+import com.example.blockbuster.Movies
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

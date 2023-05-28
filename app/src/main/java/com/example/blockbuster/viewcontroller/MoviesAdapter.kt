@@ -1,10 +1,12 @@
-package com.example.blockbuster
+package com.example.blockbuster.viewcontroller
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.blockbuster.GenreMap
+import com.example.blockbuster.Movie
 import com.example.blockbuster.databinding.ItemMovieBinding
 
 class MoviesAdapter(val movies: List<Movie>, val genreMap: GenreMap, val listener: OnClickListener) :

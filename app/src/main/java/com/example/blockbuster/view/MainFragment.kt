@@ -1,4 +1,4 @@
-package com.example.blockbuster
+package com.example.blockbuster.view
 
 import android.os.Bundle
 import android.util.Log
@@ -6,7 +6,10 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.blockbuster.*
 import com.example.blockbuster.databinding.FragmentMainBinding
+import com.example.blockbuster.model.Repository
+import com.example.blockbuster.viewcontroller.MoviesAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

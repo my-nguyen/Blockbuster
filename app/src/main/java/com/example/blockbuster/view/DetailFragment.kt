@@ -1,4 +1,4 @@
-package com.example.blockbuster
+package com.example.blockbuster.view
 
 import android.os.Build
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.example.blockbuster.R
 import com.example.blockbuster.databinding.FragmentDetailBinding
 
 private const val TAG = "DetailFragment"
