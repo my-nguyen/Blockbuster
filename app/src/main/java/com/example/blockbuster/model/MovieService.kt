@@ -1,7 +1,7 @@
 package com.example.blockbuster.model
 
-import com.example.blockbuster.GenreList
-import com.example.blockbuster.Movies
+import com.example.blockbuster.model.json.GenreList
+import com.example.blockbuster.model.json.Movies
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

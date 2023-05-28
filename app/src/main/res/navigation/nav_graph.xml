@@ -21,10 +21,10 @@
         tools:layout="@layout/fragment_detail" >
         <argument
             android:name="movie"
-            app:argType="com.example.blockbuster.Movie"
+            app:argType="com.example.blockbuster.model.json.Movie"
             app:nullable="true" />
         <argument
             android:name="genres"
-            app:argType="com.example.blockbuster.GenreMap" />
+            app:argType="com.example.blockbuster.model.json.GenreMap" />
     </fragment>
 </navigation>

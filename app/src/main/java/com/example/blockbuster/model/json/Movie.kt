@@ -1,4 +1,4 @@
-package com.example.blockbuster
+package com.example.blockbuster.model.json
 
 const val IMAGE_PREFIX = "https://image.tmdb.org/t/p/w342/"
 

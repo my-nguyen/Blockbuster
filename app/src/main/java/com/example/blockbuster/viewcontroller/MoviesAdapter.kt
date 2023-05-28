@@ -5,9 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.blockbuster.GenreMap
-import com.example.blockbuster.Movie
 import com.example.blockbuster.databinding.ItemMovieBinding
+import com.example.blockbuster.model.json.GenreMap
+import com.example.blockbuster.model.json.Movie
 
 class MoviesAdapter(val movies: List<Movie>, val genreMap: GenreMap, val listener: OnClickListener) :
     RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {

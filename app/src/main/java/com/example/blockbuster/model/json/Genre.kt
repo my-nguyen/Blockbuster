@@ -1,4 +1,4 @@
-package com.example.blockbuster
+package com.example.blockbuster.model.json
 
 data class Genre(val id: Int, val name: String)
 

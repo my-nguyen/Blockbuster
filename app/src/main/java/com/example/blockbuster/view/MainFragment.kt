@@ -9,6 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.blockbuster.*
 import com.example.blockbuster.databinding.FragmentMainBinding
 import com.example.blockbuster.model.Repository
+import com.example.blockbuster.model.json.GenreList
+import com.example.blockbuster.model.json.GenreMap
+import com.example.blockbuster.model.json.Movie
+import com.example.blockbuster.model.json.Movies
 import com.example.blockbuster.viewcontroller.MoviesAdapter
 import retrofit2.Call
 import retrofit2.Callback
