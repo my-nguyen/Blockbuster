@@ -14,12 +14,13 @@ import retrofit2.Callback
 import retrofit2.Response
 
 private const val TAG = "MovieModel"
+
 class MovieModel(application: Application) : AndroidViewModel(application) {
     val genres = MutableLiveData<GenreMap>()
     val movies = MutableLiveData<List<Movie>>()
 
     fun getGenres() {
-        Repository.instance?.getGenres()!!.enqueue(object : Callback<GenreList> {
+        Repository.getGenres().enqueue(object : Callback<GenreList> {
             override fun onFailure(call: Call<GenreList>, t: Throwable) {
                 Log.d(TAG, "getGenres failed ${t.printStackTrace()}")
             }
@@ -34,7 +35,7 @@ class MovieModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getPopular() {
-        Repository.instance?.getPopular()!!.enqueue(object: Callback<Movies> {
+        Repository.getPopular().enqueue(object: Callback<Movies> {
             override fun onFailure(call: Call<Movies>, t: Throwable) {
                 Log.d(TAG, "getPopular failed ${t.printStackTrace()}")
             }
