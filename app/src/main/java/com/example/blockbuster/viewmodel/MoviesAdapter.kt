@@ -1,4 +1,4 @@
-package com.example.blockbuster.viewcontroller
+package com.example.blockbuster.viewmodel
 
 import android.view.LayoutInflater
 import android.view.View

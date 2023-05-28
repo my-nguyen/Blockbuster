@@ -23,8 +23,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         val movie = args.movie!!
         val genreMap = args.genres
         binding.apply {
-            Glide.with(this@DetailFragment).load(movie.getPoster())
-                .into(poster)
+            Glide.with(this@DetailFragment).load(movie.getPoster()).into(poster)
             title.setText(movie.title)
             genres.setText(movie.genre_ids.joinToString(", ") { genreMap.map[it]!! })
             quantity.setText(movie.quantity.toString())
