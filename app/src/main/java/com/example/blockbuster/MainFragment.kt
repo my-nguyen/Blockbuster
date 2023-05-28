@@ -11,8 +11,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-private const val API_KEY = "1fca74d1a066b2433a06dea9b96239fe"
-private const val TAG = "MainFragment-Truong"
+private const val TAG = "MainFragment"
 
 class MainFragment : Fragment(R.layout.fragment_main) {
     private val movies = mutableListOf<Movie>()
@@ -32,7 +31,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.recycler.adapter = adapter
         binding.recycler.layoutManager = LinearLayoutManager(requireActivity())
 
-        MovieService.instance.getGenres(API_KEY).enqueue(object : Callback<GenreList> {
+        Repository.instance?.getGenres()!!.enqueue(object : Callback<GenreList> {
             override fun onFailure(call: Call<GenreList>, t: Throwable) {
                 Log.d(TAG, "getGenres failed ${t.printStackTrace()}")
             }
@@ -45,7 +44,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun getPopular() {
-        MovieService.instance.getPopular(API_KEY, 1).enqueue(object: Callback<Movies> {
+        Repository.instance?.getPopular()!!.enqueue(object: Callback<Movies> {
             override fun onFailure(call: Call<Movies>, t: Throwable) {
                 Log.d(TAG, "getPopular failed ${t.printStackTrace()}")
             }
