@@ -17,3 +17,13 @@ class GenreMap: java.io.Serializable {
         }
     }
 }
+
+class ReverseGenreMap: java.io.Serializable {
+    val map = mutableMapOf<String, Int>()
+
+    fun init(genres: List<Genre>) {
+        for (genre in genres) {
+            map[genre.name] = genre.id
+        }
+    }
+}

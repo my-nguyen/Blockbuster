@@ -5,10 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.blockbuster.model.Repository
-import com.example.blockbuster.model.json.GenreList
-import com.example.blockbuster.model.json.GenreMap
-import com.example.blockbuster.model.json.Movie
-import com.example.blockbuster.model.json.Movies
+import com.example.blockbuster.model.json.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,6 +14,8 @@ private const val TAG = "MovieModel"
 
 class MovieModel(application: Application) : AndroidViewModel(application) {
     val genres = MutableLiveData<GenreMap>()
+    val reverseGenres = MutableLiveData<ReverseGenreMap>()
+    val _movies = mutableListOf<Movie>()
     val movies = MutableLiveData<List<Movie>>()
 
     fun getGenres() {
@@ -29,6 +28,9 @@ class MovieModel(application: Application) : AndroidViewModel(application) {
                 val map = GenreMap()
                 map.init(response.body()!!.genres)
                 genres.value = map
+                val reverseMap = ReverseGenreMap()
+                reverseMap.init(response.body()!!.genres)
+                reverseGenres.value = reverseMap
                 getPopular()
             }
         })
@@ -41,14 +43,19 @@ class MovieModel(application: Application) : AndroidViewModel(application) {
             }
 
             override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
-                movies.value = response.body()!!.results
+                _movies.addAll(response.body()!!.results)
+                movies.value = _movies
             }
         })
     }
 
     fun onLongClick(position: Int) {
-        movies.postValue(movies.value?.toMutableList()?.apply {
-            removeAt(position)
-        }!!.toList())
+        _movies.removeAt(position)
+        movies.value = _movies
+    }
+
+    fun addMovie(movie: Movie) {
+        _movies.add(0, movie)
+        movies.value = _movies
     }
 }

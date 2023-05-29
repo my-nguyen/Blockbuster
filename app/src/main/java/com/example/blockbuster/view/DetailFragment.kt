@@ -22,13 +22,11 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         Log.d(TAG, "version: ${Build.VERSION.SDK_INT}")
         val movie = args.movie
         val genreMap = args.genres
-        if (movie != null && genreMap != null) {
-            binding.apply {
-                Glide.with(this@DetailFragment).load(movie.getPoster()).into(poster)
-                title.setText(movie.title)
-                genres.setText(movie.genre_ids.joinToString(", ") { genreMap.map[it]!! })
-                quantity.setText(movie.quantity.toString())
-            }
+        binding.apply {
+            Glide.with(this@DetailFragment).load(movie.getPoster()).into(poster)
+            title.setText(movie.title)
+            genres.setText(movie.genre_ids.joinToString(", ") { genreMap.map[it]!! })
+            quantity.setText(movie.quantity.toString())
         }
     }
 }

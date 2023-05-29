@@ -1,14 +1,15 @@
 package com.example.blockbuster.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.blockbuster.R
 import com.example.blockbuster.databinding.FragmentMainBinding
+import com.example.blockbuster.model.json.Movie
 import com.example.blockbuster.viewmodel.MovieModel
 import com.example.blockbuster.viewmodel.MoviesAdapter
 
@@ -22,7 +23,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         val binding = FragmentMainBinding.bind(view)
 
         binding.fab.setOnClickListener {
-            val action = MainFragmentDirections.toDetailFragment(null, null)
+            setFragmentResultListener("NGUYEN") { key, bundle ->
+                val movie = bundle.get("movie") as Movie
+                viewModel.addMovie(movie)
+            }
+            val action = MainFragmentDirections.toNewFragment(viewModel.reverseGenres.value!!)
             view.findNavController().navigate(action)
         }
 
@@ -41,7 +46,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     override fun onItemClick(position: Int) {
                         viewModel.onLongClick(position)
                     }
-                })
+                }, requireActivity())
             binding.recycler.adapter = adapter
             binding.recycler.layoutManager = LinearLayoutManager(requireActivity())
         }

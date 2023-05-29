@@ -13,6 +13,9 @@
         <action
             android:id="@+id/to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/to_newFragment"
+            app:destination="@id/newFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -21,11 +24,18 @@
         tools:layout="@layout/fragment_detail" >
         <argument
             android:name="movie"
-            app:argType="com.example.blockbuster.model.json.Movie"
-            app:nullable="true" />
+            app:argType="com.example.blockbuster.model.json.Movie" />
         <argument
             android:name="genres"
-            app:argType="com.example.blockbuster.model.json.GenreMap"
-            app:nullable="true" />
+            app:argType="com.example.blockbuster.model.json.GenreMap" />
+    </fragment>
+    <fragment
+        android:id="@+id/newFragment"
+        android:name="com.example.blockbuster.view.NewFragment"
+        android:label="fragment_new"
+        tools:layout="@layout/fragment_new" >
+        <argument
+            android:name="reverseGenres"
+            app:argType="com.example.blockbuster.model.json.ReverseGenreMap" />
     </fragment>
 </navigation>
