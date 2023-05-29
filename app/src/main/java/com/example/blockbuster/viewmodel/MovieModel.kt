@@ -31,7 +31,6 @@ class MovieModel(application: Application) : AndroidViewModel(application) {
                 val reverseMap = ReverseGenreMap()
                 reverseMap.init(response.body()!!.genres)
                 reverseGenres.value = reverseMap
-                getPopular()
             }
         })
     }
@@ -45,6 +44,7 @@ class MovieModel(application: Application) : AndroidViewModel(application) {
             override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
                 _movies.addAll(response.body()!!.results)
                 movies.value = _movies
+                Log.d(TAG, "getPopular called, movies size: ${_movies.size}")
             }
         })
     }
@@ -57,5 +57,14 @@ class MovieModel(application: Application) : AndroidViewModel(application) {
     fun addMovie(movie: Movie) {
         _movies.add(0, movie)
         movies.value = _movies
+    }
+
+    fun searchMovie(query: String) {
+        val results = mutableListOf<Movie>()
+        for (movie in _movies) {
+            if (movie.title.contains(query))
+                results.add(movie)
+        }
+        movies.value = results
     }
 }
