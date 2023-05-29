@@ -9,9 +9,12 @@ import com.example.blockbuster.databinding.ItemMovieBinding
 import com.example.blockbuster.model.json.GenreMap
 import com.example.blockbuster.model.json.Movie
 
-class MoviesAdapter(val movies: List<Movie>, val genreMap: GenreMap, val listener: OnClickListener) :
+class MoviesAdapter(val movies: List<Movie>, val genreMap: GenreMap, val clickListener: OnClickListener, val longClickListener: OnLongClickListener) :
     RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
     interface OnClickListener {
+        fun onItemClick(position: Int)
+    }
+    interface OnLongClickListener {
         fun onItemClick(position: Int)
     }
 
@@ -31,7 +34,11 @@ class MoviesAdapter(val movies: List<Movie>, val genreMap: GenreMap, val listene
                 }
             }
             itemView.setOnClickListener {
-                listener.onItemClick(adapterPosition)
+                clickListener.onItemClick(adapterPosition)
+            }
+            itemView.setOnLongClickListener {
+                longClickListener.onItemClick(adapterPosition)
+                return@setOnLongClickListener true
             }
         }
     }

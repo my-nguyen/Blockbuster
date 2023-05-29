@@ -45,4 +45,10 @@ class MovieModel(application: Application) : AndroidViewModel(application) {
             }
         })
     }
+
+    fun onLongClick(position: Int) {
+        movies.postValue(movies.value?.toMutableList()?.apply {
+            removeAt(position)
+        }!!.toList())
+    }
 }

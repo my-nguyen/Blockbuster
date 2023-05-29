@@ -25,12 +25,20 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             viewModel.getPopular()
         }
         viewModel.movies.observe(viewLifecycleOwner) {
-            val adapter = MoviesAdapter(it, viewModel.genres.value!!, object : MoviesAdapter.OnClickListener {
-                override fun onItemClick(position: Int) {
-                    val action = MainFragmentDirections.toDetailFragment(it[position], viewModel.genres.value!!)
-                    view.findNavController().navigate(action)
-                }
-            })
+            val adapter = MoviesAdapter(it, viewModel.genres.value!!,
+                object : MoviesAdapter.OnClickListener {
+                    override fun onItemClick(position: Int) {
+                        val action = MainFragmentDirections.toDetailFragment(
+                            it[position],
+                            viewModel.genres.value!!
+                        )
+                        view.findNavController().navigate(action)
+                    }
+                }, object : MoviesAdapter.OnLongClickListener {
+                    override fun onItemClick(position: Int) {
+                        viewModel.onLongClick(position)
+                    }
+                })
             binding.recycler.adapter = adapter
             binding.recycler.layoutManager = LinearLayoutManager(requireActivity())
         }
