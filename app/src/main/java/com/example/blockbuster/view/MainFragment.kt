@@ -1,6 +1,7 @@
 package com.example.blockbuster.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -20,6 +21,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentMainBinding.bind(view)
 
+        binding.fab.setOnClickListener {
+            val action = MainFragmentDirections.toDetailFragment(null, null)
+            view.findNavController().navigate(action)
+        }
+
         viewModel = ViewModelProvider(this)[MovieModel::class.java]
         viewModel.genres.observe(viewLifecycleOwner) {
             viewModel.getPopular()
@@ -28,10 +34,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             val adapter = MoviesAdapter(it, viewModel.genres.value!!,
                 object : MoviesAdapter.OnClickListener {
                     override fun onItemClick(position: Int) {
-                        val action = MainFragmentDirections.toDetailFragment(
-                            it[position],
-                            viewModel.genres.value!!
-                        )
+                        val action = MainFragmentDirections.toDetailFragment(it[position], viewModel.genres.value!!)
                         view.findNavController().navigate(action)
                     }
                 }, object : MoviesAdapter.OnLongClickListener {

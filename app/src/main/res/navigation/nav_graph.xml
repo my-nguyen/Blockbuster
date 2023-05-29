@@ -25,6 +25,7 @@
             app:nullable="true" />
         <argument
             android:name="genres"
-            app:argType="com.example.blockbuster.model.json.GenreMap" />
+            app:argType="com.example.blockbuster.model.json.GenreMap"
+            app:nullable="true" />
     </fragment>
 </navigation>
