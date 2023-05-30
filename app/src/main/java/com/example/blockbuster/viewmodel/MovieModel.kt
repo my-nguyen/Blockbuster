@@ -16,6 +16,10 @@ class MovieModel(private val genreRepo: GenreRepository, private val movieRepo: 
     val _movies = mutableListOf<Movie>()
     val movies = MutableLiveData<List<Movie>>()
 
+    init {
+        getPopular()
+    }
+
     fun getPopular() {
         movieRepo.getPopular().enqueue(object: Callback<Movies> {
             override fun onFailure(call: Call<Movies>, t: Throwable) {
@@ -38,6 +42,11 @@ class MovieModel(private val genreRepo: GenreRepository, private val movieRepo: 
 
     fun addMovie(movie: Movie) {
         _movies.add(0, movie)
+        movies.value = _movies
+    }
+
+    fun updateMovie(movie: Movie, position: Int) {
+        _movies[position] = movie
         movies.value = _movies
     }
 

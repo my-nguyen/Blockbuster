@@ -4,7 +4,10 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.blockbuster.R
 import com.example.blockbuster.databinding.FragmentDetailBinding
@@ -25,6 +28,12 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             title.setText(movie.title)
             genres.setText(movie.genre_ids.joinToString(", ") { GenreMap.map[it]!! })
             quantity.setText(movie.quantity.toString())
+
+            save.setOnClickListener {
+                movie.quantity = quantity.text.toString().toInt()
+                setFragmentResult(KEY_MOVIE, bundleOf("movie" to movie))
+                findNavController().navigateUp()
+            }
         }
     }
 }

@@ -3,10 +3,7 @@ package com.example.blockbuster.view
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -14,6 +11,7 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,9 +32,19 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         MovieModelFactory(application.genreRepository, application.movieRepository)
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        Log.d(TAG, "onCreateView")
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentMainBinding.bind(view)
+        Log.d(TAG, "onViewCreated")
 
         viewModel.genres.observe(viewLifecycleOwner, Observer {
             Log.d(TAG, "genres count: ${it.size}")
@@ -51,11 +59,14 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             view.findNavController().navigate(action)
         }
 
-        viewModel.getPopular()
         viewModel.movies.observe(viewLifecycleOwner) {
             val adapter = MoviesAdapter(it,
                 object : MoviesAdapter.OnClickListener {
                     override fun onItemClick(position: Int) {
+                        setFragmentResultListener(KEY_MOVIE) { _, bundle ->
+                            val movie = bundle.get("movie") as Movie
+                            viewModel.updateMovie(movie, position)
+                        }
                         val action = MainFragmentDirections.toDetailFragment(it[position])
                         view.findNavController().navigate(action)
                     }
@@ -98,7 +109,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return false
             }
-        })
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun hideKeyboard() {

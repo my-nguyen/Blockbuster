@@ -80,4 +80,14 @@
         app:layout_constraintStart_toEndOf="@+id/quantity_label"
         app:layout_constraintTop_toTopOf="@+id/quantity_label" />
 
+    <Button
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quantity" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

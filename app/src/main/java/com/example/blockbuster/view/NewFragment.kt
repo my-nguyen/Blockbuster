@@ -22,7 +22,7 @@ class NewFragment : Fragment(R.layout.fragment_new) {
             save.setOnClickListener {
                 val selection = spinner.selectedItem.toString()
                 val genre = ReverseGenreMap.map[selection]!!
-                val movie = Movie(genre_ids = listOf(genre), title = title.text.toString())
+                val movie = Movie(genre_ids = listOf(genre), title = title.text.toString(), quantity = quantity.text.toString().toInt())
                 setFragmentResult(KEY_MOVIE, bundleOf("movie" to movie))
                 findNavController().navigateUp()
             }
