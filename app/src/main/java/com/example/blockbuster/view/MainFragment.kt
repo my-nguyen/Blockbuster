@@ -8,6 +8,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -40,6 +41,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         viewModel.genres.observe(viewLifecycleOwner, Observer {
             Log.d(TAG, "genres count: ${it.size}")
         })
+
         binding.fab.setOnClickListener {
             setFragmentResultListener(KEY_MOVIE) { _, bundle ->
                 val movie = bundle.get("movie") as Movie
@@ -59,6 +61,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     }
                 }, object : MoviesAdapter.OnLongClickListener {
                     override fun onItemClick(position: Int) {
+                        Toast.makeText(requireContext(), "${it[position].title} deleted", Toast.LENGTH_LONG).show()
                         viewModel.onLongClick(position)
                     }
                 })

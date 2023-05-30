@@ -11,7 +11,11 @@ interface GenreDao {
     @Query("SELECT * FROM genre_table ORDER BY name ASC")
     fun getAllGenres(): Flow<List<Genre>>
 
-//    @Query("SELECT id FROM genre_table WHERE name = '")
+    @Query("SELECT id FROM genre_table WHERE name = :name")
+    fun findId(name: String): Int
+
+    @Query("SELECT name FROM genre_table WHERE id = :id")
+    fun findName(id: Int): String
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(genre: Genre)

@@ -8,7 +8,7 @@ import com.example.blockbuster.databinding.ItemMovieBinding
 import com.example.blockbuster.model.GenreMap
 import com.example.blockbuster.model.Movie
 
-class MoviesAdapter(val movies: List<Movie>, val clickListener: OnClickListener, val longClickListener: OnLongClickListener) :
+class MoviesAdapter(private val movies: List<Movie>, val clickListener: OnClickListener, val longClickListener: OnLongClickListener) :
     RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
     interface OnClickListener {
         fun onItemClick(position: Int)
@@ -17,7 +17,7 @@ class MoviesAdapter(val movies: List<Movie>, val clickListener: OnClickListener,
         fun onItemClick(position: Int)
     }
 
-    inner class ViewHolder(val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
             binding.apply {
                 title.text = movie.title
