@@ -11,6 +11,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 private const val TAG = "MovieModel"
+private const val MAX_QUANTITY = 10
 
 class MovieModel(application: Application) : AndroidViewModel(application) {
     val genres = MutableLiveData<GenreMap>()
@@ -43,6 +44,7 @@ class MovieModel(application: Application) : AndroidViewModel(application) {
 
             override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
                 _movies.addAll(response.body()!!.results)
+                setQuantities()
                 movies.value = _movies
                 Log.d(TAG, "getPopular called, movies size: ${_movies.size}")
             }
@@ -66,5 +68,10 @@ class MovieModel(application: Application) : AndroidViewModel(application) {
                 results.add(movie)
         }
         movies.value = results
+    }
+
+    private fun setQuantities() {
+        for (movie in _movies)
+            movie.quantity = (0..MAX_QUANTITY).random()
     }
 }

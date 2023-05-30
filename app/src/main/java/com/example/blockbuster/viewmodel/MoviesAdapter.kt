@@ -1,16 +1,14 @@
 package com.example.blockbuster.viewmodel
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.blockbuster.databinding.ItemMovieBinding
 import com.example.blockbuster.model.json.GenreMap
 import com.example.blockbuster.model.json.Movie
 
-class MoviesAdapter(val movies: List<Movie>, val genreMap: GenreMap, val clickListener: OnClickListener, val longClickListener: OnLongClickListener, val context: Context) :
+class MoviesAdapter(val movies: List<Movie>, val genreMap: GenreMap, val clickListener: OnClickListener, val longClickListener: OnLongClickListener) :
     RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
     interface OnClickListener {
         fun onItemClick(position: Int)
@@ -22,12 +20,6 @@ class MoviesAdapter(val movies: List<Movie>, val genreMap: GenreMap, val clickLi
     inner class ViewHolder(val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
             binding.apply {
-                if (movie.backdrop_path.isEmpty()) {
-                    val uri = "@drawable/backdrop"
-                    val imageResource = context.resources.getIdentifier(uri, null, context.packageName)
-                    backdrop.setImageResource(imageResource)
-                } else
-                    Glide.with(itemView).load(movie.getBackdrop()).into(backdrop)
                 title.text = movie.title
                 genres.text = movie.genre_ids.joinToString(", ") { genreMap.map[it]!! }
                 if (movie.quantity > 0) {

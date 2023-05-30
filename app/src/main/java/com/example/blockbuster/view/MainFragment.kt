@@ -53,7 +53,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     override fun onItemClick(position: Int) {
                         viewModel.onLongClick(position)
                     }
-                }, requireActivity())
+                })
             binding.recycler.adapter = adapter
             binding.recycler.layoutManager = LinearLayoutManager(requireActivity())
         }

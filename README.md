@@ -16,5 +16,5 @@ TODO:
 * Retrieve more than 20 movie records to create a long list
 * Add back arrow buttons from DetailFragment and NewFragment
 * Add functionality to go from the search result screen back to the original list
-* Add a local database to cache data in case there's no connection to TheMovieDB.org
 * Either remove all movie posters in the main list, or load some default image for a manually added movie
+* Add dependency injection
