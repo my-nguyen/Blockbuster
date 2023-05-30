@@ -2,6 +2,7 @@ package com.example.blockbuster.view
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -12,23 +13,32 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.blockbuster.MyApplication
 import com.example.blockbuster.R
 import com.example.blockbuster.databinding.FragmentMainBinding
-import com.example.blockbuster.model.json.Movie
+import com.example.blockbuster.model.Movie
 import com.example.blockbuster.viewmodel.MovieModel
+import com.example.blockbuster.viewmodel.MovieModelFactory
 import com.example.blockbuster.viewmodel.MoviesAdapter
 
 private const val TAG = "MainFragment"
 
 class MainFragment : Fragment(R.layout.fragment_main) {
-    private val viewModel by viewModels<MovieModel>()
+    //    private val viewModel by viewModels<MovieModel>()
+    private val viewModel: MovieModel by viewModels {
+        MovieModelFactory((requireActivity().application as MyApplication).genreRepository)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentMainBinding.bind(view)
 
+        viewModel.genres.observe(viewLifecycleOwner, Observer {
+            Log.d(TAG, "genres count: ${it.size}")
+        })
         binding.fab.setOnClickListener {
             setFragmentResultListener(KEY_MOVIE) { _, bundle ->
                 val movie = bundle.get("movie") as Movie
@@ -90,7 +100,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun hideKeyboard() {
         val view = requireActivity().currentFocus
         if (view != null) {
-            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm =
+                requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }

@@ -1,6 +1,11 @@
-package com.example.blockbuster.model.json
+package com.example.blockbuster.model
 
-data class Genre(val id: Int, val name: String)
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "genre_table")
+class Genre(@PrimaryKey(autoGenerate = false) val id: Int, @ColumnInfo(name = "name") val name: String)
 
 // hardcode list of genres instead of downloading it from themoviedb.org
 val genres = listOf(

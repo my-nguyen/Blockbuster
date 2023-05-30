@@ -1,4 +1,4 @@
-package com.example.blockbuster.model.json
+package com.example.blockbuster.model
 
 data class Movie(
     val genre_ids: List<Int>,

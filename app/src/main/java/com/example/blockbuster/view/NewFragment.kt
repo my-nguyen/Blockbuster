@@ -8,8 +8,8 @@ import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import com.example.blockbuster.R
 import com.example.blockbuster.databinding.FragmentNewBinding
-import com.example.blockbuster.model.json.Movie
-import com.example.blockbuster.model.json.ReverseGenreMap
+import com.example.blockbuster.model.Movie
+import com.example.blockbuster.model.ReverseGenreMap
 
 const val KEY_MOVIE = "MOVIE"
 

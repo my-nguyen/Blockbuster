@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.blockbuster.R
 import com.example.blockbuster.databinding.FragmentDetailBinding
-import com.example.blockbuster.model.json.GenreMap
+import com.example.blockbuster.model.GenreMap
 
 private const val TAG = "DetailFragment"
 

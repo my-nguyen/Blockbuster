@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_detail" >
         <argument
             android:name="movie"
-            app:argType="com.example.blockbuster.model.json.Movie" />
+            app:argType="com.example.blockbuster.model.Movie" />
     </fragment>
     <fragment
         android:id="@+id/newFragment"

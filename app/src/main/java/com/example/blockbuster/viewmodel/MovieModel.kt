@@ -1,11 +1,9 @@
 package com.example.blockbuster.viewmodel
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import com.example.blockbuster.model.Repository
-import com.example.blockbuster.model.json.*
+import androidx.lifecycle.*
+import com.example.blockbuster.model.*
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -13,9 +11,10 @@ import retrofit2.Response
 private const val TAG = "MovieModel"
 private const val MAX_QUANTITY = 10
 
-class MovieModel(application: Application) : AndroidViewModel(application) {
+class MovieModel(val genreRepository: GenreRepository) : ViewModel() {
     val _movies = mutableListOf<Movie>()
     val movies = MutableLiveData<List<Movie>>()
+    val genres = genreRepository.allGenres.asLiveData()
 
     fun getPopular() {
         Repository.getPopular().enqueue(object: Callback<Movies> {
@@ -51,8 +50,22 @@ class MovieModel(application: Application) : AndroidViewModel(application) {
         movies.value = results
     }
 
+    fun insertGenre(genre: Genre) = viewModelScope.launch {
+        genreRepository.insert(genre)
+    }
+
     private fun setQuantities() {
         for (movie in _movies)
             movie.quantity = (0..MAX_QUANTITY).random()
+    }
+}
+
+class MovieModelFactory(private val repository: GenreRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(MovieModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return MovieModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
