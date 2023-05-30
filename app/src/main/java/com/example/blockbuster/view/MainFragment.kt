@@ -11,7 +11,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.blockbuster.R
@@ -23,7 +23,7 @@ import com.example.blockbuster.viewmodel.MoviesAdapter
 private const val TAG = "MainFragment"
 
 class MainFragment : Fragment(R.layout.fragment_main) {
-    private lateinit var viewModel: MovieModel
+    private val viewModel by viewModels<MovieModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,7 +38,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             view.findNavController().navigate(action)
         }
 
-        viewModel = ViewModelProvider(this)[MovieModel::class.java]
         viewModel.genres.observe(viewLifecycleOwner) {
             viewModel.getPopular()
         }
