@@ -11,13 +11,13 @@ import retrofit2.Response
 private const val TAG = "MovieModel"
 private const val MAX_QUANTITY = 10
 
-class MovieModel(val genreRepository: GenreRepository) : ViewModel() {
+class MovieModel(private val genreRepo: GenreRepository, private val movieRepo: MovieRepository) : ViewModel() {
+    val genres = genreRepo.allGenres.asLiveData()
     val _movies = mutableListOf<Movie>()
     val movies = MutableLiveData<List<Movie>>()
-    val genres = genreRepository.allGenres.asLiveData()
 
     fun getPopular() {
-        Repository.getPopular().enqueue(object: Callback<Movies> {
+        movieRepo.getPopular().enqueue(object: Callback<Movies> {
             override fun onFailure(call: Call<Movies>, t: Throwable) {
                 Log.d(TAG, "getPopular failed ${t.printStackTrace()}")
             }
@@ -51,7 +51,7 @@ class MovieModel(val genreRepository: GenreRepository) : ViewModel() {
     }
 
     fun insertGenre(genre: Genre) = viewModelScope.launch {
-        genreRepository.insert(genre)
+        genreRepo.insert(genre)
     }
 
     private fun setQuantities() {
@@ -60,11 +60,11 @@ class MovieModel(val genreRepository: GenreRepository) : ViewModel() {
     }
 }
 
-class MovieModelFactory(private val repository: GenreRepository) : ViewModelProvider.Factory {
+class MovieModelFactory(private val genreRepo: GenreRepository, private val movieRepo: MovieRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MovieModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return MovieModel(repository) as T
+            return MovieModel(genreRepo, movieRepo) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

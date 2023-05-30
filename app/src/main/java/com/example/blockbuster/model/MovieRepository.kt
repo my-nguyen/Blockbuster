@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 private const val BASE_URL = "https://api.themoviedb.org/3/"
 private const val API_KEY = "1fca74d1a066b2433a06dea9b96239fe"
 
-object Repository {
+class MovieRepository {
     private val service: MovieService
 
     init {

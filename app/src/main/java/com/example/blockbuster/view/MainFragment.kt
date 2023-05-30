@@ -29,7 +29,8 @@ private const val TAG = "MainFragment"
 class MainFragment : Fragment(R.layout.fragment_main) {
     //    private val viewModel by viewModels<MovieModel>()
     private val viewModel: MovieModel by viewModels {
-        MovieModelFactory((requireActivity().application as MyApplication).genreRepository)
+        val application = requireActivity().application as MyApplication
+        MovieModelFactory(application.genreRepository, application.movieRepository)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
