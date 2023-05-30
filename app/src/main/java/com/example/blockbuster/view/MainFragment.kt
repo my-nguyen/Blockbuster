@@ -30,22 +30,20 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         val binding = FragmentMainBinding.bind(view)
 
         binding.fab.setOnClickListener {
-            setFragmentResultListener("NGUYEN") { key, bundle ->
+            setFragmentResultListener(KEY_MOVIE) { _, bundle ->
                 val movie = bundle.get("movie") as Movie
                 viewModel.addMovie(movie)
             }
-            val action = MainFragmentDirections.toNewFragment(viewModel.reverseGenres.value!!)
+            val action = MainFragmentDirections.toNewFragment()
             view.findNavController().navigate(action)
         }
 
-        viewModel.genres.observe(viewLifecycleOwner) {
-            viewModel.getPopular()
-        }
+        viewModel.getPopular()
         viewModel.movies.observe(viewLifecycleOwner) {
-            val adapter = MoviesAdapter(it, viewModel.genres.value!!,
+            val adapter = MoviesAdapter(it,
                 object : MoviesAdapter.OnClickListener {
                     override fun onItemClick(position: Int) {
-                        val action = MainFragmentDirections.toDetailFragment(it[position], viewModel.genres.value!!)
+                        val action = MainFragmentDirections.toDetailFragment(it[position])
                         view.findNavController().navigate(action)
                     }
                 }, object : MoviesAdapter.OnLongClickListener {
@@ -56,7 +54,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             binding.recycler.adapter = adapter
             binding.recycler.layoutManager = LinearLayoutManager(requireActivity())
         }
-        viewModel.getGenres()
 
         requireActivity().addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

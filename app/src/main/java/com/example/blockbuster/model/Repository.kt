@@ -1,6 +1,5 @@
 package com.example.blockbuster.model
 
-import com.example.blockbuster.model.json.GenreList
 import com.example.blockbuster.model.json.Movies
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -19,8 +18,6 @@ object Repository {
             .build()
         service = retrofit.create(MovieService::class.java)
     }
-
-    fun getGenres(): Call<GenreList> = service.getGenres(API_KEY)
 
     fun getPopular(): Call<Movies> = service.getPopular(API_KEY, 1)
 }

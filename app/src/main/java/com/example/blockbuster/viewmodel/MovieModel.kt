@@ -14,27 +14,8 @@ private const val TAG = "MovieModel"
 private const val MAX_QUANTITY = 10
 
 class MovieModel(application: Application) : AndroidViewModel(application) {
-    val genres = MutableLiveData<GenreMap>()
-    val reverseGenres = MutableLiveData<ReverseGenreMap>()
     val _movies = mutableListOf<Movie>()
     val movies = MutableLiveData<List<Movie>>()
-
-    fun getGenres() {
-        Repository.getGenres().enqueue(object : Callback<GenreList> {
-            override fun onFailure(call: Call<GenreList>, t: Throwable) {
-                Log.d(TAG, "getGenres failed ${t.printStackTrace()}")
-            }
-
-            override fun onResponse(call: Call<GenreList>, response: Response<GenreList>) {
-                val map = GenreMap()
-                map.init(response.body()!!.genres)
-                genres.value = map
-                val reverseMap = ReverseGenreMap()
-                reverseMap.init(response.body()!!.genres)
-                reverseGenres.value = reverseMap
-            }
-        })
-    }
 
     fun getPopular() {
         Repository.getPopular().enqueue(object: Callback<Movies> {

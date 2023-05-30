@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.blockbuster.view.MainFragment"
-        android:label="fragment_main"
+        android:label="Blockbuster"
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/to_detailFragment"
@@ -20,22 +20,15 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.example.blockbuster.view.DetailFragment"
-        android:label="fragment_detail"
+        android:label="Edit Movie"
         tools:layout="@layout/fragment_detail" >
         <argument
             android:name="movie"
             app:argType="com.example.blockbuster.model.json.Movie" />
-        <argument
-            android:name="genres"
-            app:argType="com.example.blockbuster.model.json.GenreMap" />
     </fragment>
     <fragment
         android:id="@+id/newFragment"
         android:name="com.example.blockbuster.view.NewFragment"
-        android:label="fragment_new"
-        tools:layout="@layout/fragment_new" >
-        <argument
-            android:name="reverseGenres"
-            app:argType="com.example.blockbuster.model.json.ReverseGenreMap" />
-    </fragment>
+        android:label="New Movie"
+        tools:layout="@layout/fragment_new" />
 </navigation>

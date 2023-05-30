@@ -8,7 +8,7 @@ import com.example.blockbuster.databinding.ItemMovieBinding
 import com.example.blockbuster.model.json.GenreMap
 import com.example.blockbuster.model.json.Movie
 
-class MoviesAdapter(val movies: List<Movie>, val genreMap: GenreMap, val clickListener: OnClickListener, val longClickListener: OnLongClickListener) :
+class MoviesAdapter(val movies: List<Movie>, val clickListener: OnClickListener, val longClickListener: OnLongClickListener) :
     RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
     interface OnClickListener {
         fun onItemClick(position: Int)
@@ -21,7 +21,7 @@ class MoviesAdapter(val movies: List<Movie>, val genreMap: GenreMap, val clickLi
         fun bind(movie: Movie) {
             binding.apply {
                 title.text = movie.title
-                genres.text = movie.genre_ids.joinToString(", ") { genreMap.map[it]!! }
+                genres.text = movie.genre_ids.joinToString(", ") { GenreMap.map[it]!! }
                 if (movie.quantity > 0) {
                     quantity.visibility = View.VISIBLE
                     quantity.text = movie.quantity.toString()

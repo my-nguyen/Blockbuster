@@ -8,11 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.blockbuster.R
 import com.example.blockbuster.databinding.FragmentDetailBinding
+import com.example.blockbuster.model.json.GenreMap
 
 private const val TAG = "DetailFragment"
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
-    val args: DetailFragmentArgs by navArgs()
+    private val args: DetailFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -20,10 +21,9 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
         Log.d(TAG, "version: ${Build.VERSION.SDK_INT}")
         val movie = args.movie
-        val genreMap = args.genres
         binding.apply {
             title.setText(movie.title)
-            genres.setText(movie.genre_ids.joinToString(", ") { genreMap.map[it]!! })
+            genres.setText(movie.genre_ids.joinToString(", ") { GenreMap.map[it]!! })
             quantity.setText(movie.quantity.toString())
         }
     }
